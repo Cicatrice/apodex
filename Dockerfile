@@ -23,6 +23,6 @@ RUN echo this is version XIII | tee > /version
 
 ARG FOO_VERSION
 ARG RC_VERSION="foo${FOO_VERSION}"
-FROM build-${FOO_VERSION} AS test
+FROM build-${RC_VERSION} AS test
 
 RUN cat /version
