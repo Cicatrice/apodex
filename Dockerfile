@@ -21,6 +21,7 @@ RUN echo this is version XIII | tee > /version
 
 ################################################################################
 
+ARG FOO_VERSION
 FROM build-foo${FOO_VERSION} AS test
 
 RUN cat /version
