@@ -1,24 +1,26 @@
+ARG FOO_VERSION
+
 ################################################################################
 
 FROM alpine AS build-foo5
 
-RUN echo this is $FOO_VERSION | tee > /version
+RUN sleep 30
+RUN echo this is version five | tee > /version
 
 ################################################################################
 
 FROM alpine AS build-foo8
 
-RUN echo this is $FOO_VERSION | tee > /version
+RUN echo this is version 8| tee > /version
 
 ################################################################################
 
 FROM alpine AS build-foo13
 
-RUN echo this is $FOO_VERSION | tee > /version
+RUN echo this is version XIII | tee > /version
 
 ################################################################################
 
 FROM build-foo${FOO_VERSION} AS test
 
 RUN cat /version
-
