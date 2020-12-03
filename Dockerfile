@@ -24,5 +24,6 @@ RUN echo this is version XIII | tee > /version
 ################################################################################
 
 FROM build-${RC_VERSION} AS test
-RUN sh ./scripts/install.sh BAR ${BAR_VERSION}
+COPY ./scripts/install.sh /scripts/install.sh
+RUN chmod +x /scripts/install.sh && /scripts/install.sh BAR ${BAR_VERSION}
 RUN cat /version
