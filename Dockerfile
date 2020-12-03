@@ -1,4 +1,5 @@
 ARG FOO_VERSION
+ARG BAR_VERSION
 ARG RC_VERSION="foo${FOO_VERSION}"
 
 ################################################################################
@@ -23,4 +24,5 @@ RUN echo this is version XIII | tee > /version
 ################################################################################
 
 FROM build-${RC_VERSION} AS test
+RUN sh ./scripts/install.sh BAR ${BAR_VERSION}
 RUN cat /version
