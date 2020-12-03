@@ -1,3 +1,6 @@
+ARG FOO_VERSION
+ARG RC_VERSION="foo${FOO_VERSION}"
+
 ################################################################################
 
 FROM alpine AS build-foo5
@@ -20,7 +23,4 @@ RUN echo this is version XIII | tee > /version
 ################################################################################
 
 FROM build-${RC_VERSION} AS test
-ARG FOO_VERSION
-ARG RC_VERSION="foo${FOO_VERSION}"
-
 RUN cat /version
