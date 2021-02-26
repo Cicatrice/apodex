@@ -1,0 +1,40 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hello-node-forwarder
+  name: hello-node-forwarder
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-node-forwarder
+  template:
+    metadata:
+      labels:
+        app: hello-node-forwarder
+    spec:
+      containers:
+      - image: k8s.gcr.io/echoserver:1.4
+        name: echoserver
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: hello-node-ingester
+  name: hello-node-ingester
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-node-ingester
+  template:
+    metadata:
+      labels:
+        app: hello-node-ingester
+    spec:
+      containers:
+      - image: k8s.gcr.io/echoserver:1.4
+        name: echoserver
