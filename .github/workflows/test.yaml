@@ -1,11 +1,19 @@
 on: [push]
 
+env:
+  GITHUB_REPOSITORY: Cicatrice/apodex
+
 jobs:
   go:
     runs-on: ubuntu-latest
     steps:
     - name: Clone source code 
       uses: actions/checkout@v2
+      with:
+        repository: Cicatrice/apodex
+        ref: master
     - run: |
+        echo $PATH
+        env
         pwd
         find .
