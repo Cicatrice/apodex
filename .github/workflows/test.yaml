@@ -1,0 +1,11 @@
+on: [push]
+
+jobs:
+  go:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone source code 
+      uses: actions/checkout@v2
+    - run: |
+        pwd
+        find .
