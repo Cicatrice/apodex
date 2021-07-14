@@ -27,3 +27,4 @@ jobs:
         steps: ${{ toJSON(steps) }}
         EOF        
         echo done
+        echo test sync
