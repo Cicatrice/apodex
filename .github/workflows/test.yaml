@@ -14,10 +14,24 @@ env:
   GITHUB_REPOSITORY: Cicatrice/apodex
 
 jobs:
-  go:
+  gate:
+    outputs:
+      pr: ${{ steps.find-pr.outputs.number }}
     runs-on: ubuntu-latest
     steps:
-    - run: |
+      - uses: jwalton/gh-find-current-pr@v1
+        id: find-pr
+      - run: |
+          cat <<EOF
+          steps: ${{ toJSON(steps) }}
+          EOF
+
+  go:
+    runs-on: ubuntu-latest
+    needs: gate
+    if: ${{ !(github.event_name == 'push' && needs.gate.outputs.pr) }}
+    steps:
+     - run: |
         cat <<EOF
         github: ${{ toJSON(github) }}
         env: ${{ toJSON(env) }}
@@ -26,3 +40,5 @@ jobs:
         needs: ${{ toJSON(needs) }}
         steps: ${{ toJSON(steps) }}
         EOF        
+        echo done
+        echo test sync
