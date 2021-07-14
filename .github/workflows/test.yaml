@@ -15,20 +15,15 @@ env:
 
 jobs:
   gate:
-    # continue-on-error: true # Uncomment once integration is finished
     runs-on: ubuntu-latest
-    # Map a step output to a job output
-    outputs:
-      should_skip: ${{ steps.skip_check.outputs.should_skip }}
     steps:
-      - id: skip_check
-        uses: fkirc/skip-duplicate-actions@master
-        with:
-          cancel_others: 'true'
+      - uses: jwalton/gh-find-current-pr@v1
+        id: find-pr
+
   go:
     runs-on: ubuntu-latest
     needs: gate
-    if: ${{ needs.gate.outputs.should_skip != 'true' }}    
+    if: ${{ !steps.find-pr.outputs.number }}
     steps:
      - run: |
         cat <<EOF
