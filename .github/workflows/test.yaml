@@ -17,8 +17,7 @@ jobs:
   go:
     runs-on: ubuntu-latest
     steps:
-    - run: 
-    - run: |
+     - run: |
         cat <<EOF
         github: ${{ toJSON(github) }}
         env: ${{ toJSON(env) }}
