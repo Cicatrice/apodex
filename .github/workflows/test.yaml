@@ -16,7 +16,7 @@ env:
 jobs:
   gate:
     outputs:
-      pr: ${{ steps.find-id.outputs.number }}
+      pr: ${{ steps.find-pr.outputs.number }}
     runs-on: ubuntu-latest
     steps:
       - uses: jwalton/gh-find-current-pr@v1
