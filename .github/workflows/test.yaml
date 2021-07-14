@@ -1,4 +1,14 @@
-on: [push]
+name: test duplicate
+
+on: 
+  push:
+    branches:
+    - '*'
+  pull_request:
+    types:
+    - synchronize
+    - opened
+    - reopened
 
 env:
   GITHUB_REPOSITORY: Cicatrice/apodex
@@ -7,13 +17,8 @@ jobs:
   go:
     runs-on: ubuntu-latest
     steps:
-    - name: Clone source code 
-      uses: actions/checkout@v2
-      with:
-        repository: Cicatrice/apodex
-        ref: master
     - run: |
-        echo $PATH
-        env
-        pwd
-        find .
+        echo ${{ toJSON(on) }}
+        echo ${{ toJSON(jobs) }}
+        echo ${{ toJSON(steps) }}
+
