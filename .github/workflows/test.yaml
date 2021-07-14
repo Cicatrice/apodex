@@ -3,7 +3,7 @@ name: test duplicate
 on: 
   push:
     branches:
-    - '*'
+    - '**'
   pull_request:
     types:
     - synchronize
