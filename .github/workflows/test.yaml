@@ -17,6 +17,7 @@ jobs:
   go:
     runs-on: ubuntu-latest
     steps:
+    - run: 
     - run: |
         cat <<EOF
         github: ${{ toJSON(github) }}
@@ -26,3 +27,4 @@ jobs:
         needs: ${{ toJSON(needs) }}
         steps: ${{ toJSON(steps) }}
         EOF        
+        echo done
