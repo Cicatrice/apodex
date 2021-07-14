@@ -18,10 +18,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
-        echo ${{ toJSON(github) }}
-        echo ${{ toJSON(env) }}
-        echo ${{ toJSON(job) }}
-        echo ${{ toJSON(runner) }}
-        echo ${{ toJSON(needs) }}
-        echo ${{ toJSON(steps) }}
-
+        cat <<EOF
+        github: ${{ toJSON(github) }}
+        env: ${{ toJSON(env) }}
+        job: ${{ toJSON(job) }}
+        runner: ${{ toJSON(runner) }}
+        needs: ${{ toJSON(needs) }}
+        steps: ${{ toJSON(steps) }}
+        EOF        
