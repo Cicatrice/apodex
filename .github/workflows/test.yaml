@@ -1,19 +1,22 @@
-on: [push]
+name: test duplicate
+
+on: 
+  push:
+    branches:
+    - '**'
 
 env:
   GITHUB_REPOSITORY: Cicatrice/apodex
 
 jobs:
-  go:
+  gate:
     runs-on: ubuntu-latest
     steps:
-    - name: Clone source code 
-      uses: actions/checkout@v2
-      with:
-        repository: Cicatrice/apodex
-        ref: master
-    - run: |
-        echo $PATH
-        env
-        pwd
-        find .
+      - uses: actions/checkout@v1
+      # Find the PR associated with this push, if there is one.
+      - uses: Cicatrice/gh-find-open-prs@main
+        id: findPr
+      - run: |
+          cat <<EOF
+          steps: ${{ toJSON(steps.findPr) }}
+          EOF
