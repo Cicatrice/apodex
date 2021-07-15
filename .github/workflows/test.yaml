@@ -15,30 +15,13 @@ env:
 
 jobs:
   gate:
-    outputs:
-      pr: ${{ steps.find-pr.outputs.number }}
     runs-on: ubuntu-latest
     steps:
-      - uses: jwalton/gh-find-current-pr@v1
-        id: find-pr
+      - uses: actions/checkout@v1
+      # Find the PR associated with this push, if there is one.
+      - uses: Cicatrice/gh-find-open-prs@main
+        id: findPr
       - run: |
           cat <<EOF
-          steps: ${{ toJSON(steps) }}
+          steps: ${{ toJSON(steps.findPr) }}
           EOF
-
-  go:
-    runs-on: ubuntu-latest
-    needs: gate
-    if: ${{ !(github.event_name == 'push' && needs.gate.outputs.pr) }}
-    steps:
-     - run: |
-        cat <<EOF
-        github: ${{ toJSON(github) }}
-        env: ${{ toJSON(env) }}
-        job: ${{ toJSON(job) }}
-        runner: ${{ toJSON(runner) }}
-        needs: ${{ toJSON(needs) }}
-        steps: ${{ toJSON(steps) }}
-        EOF        
-        echo done
-        echo test sync
